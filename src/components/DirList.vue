@@ -4,6 +4,7 @@ import { getDirResources, ResourceType, DirResource } from '../common/resourceUt
 import type { Ref } from 'vue';
 import HighlightSegment from './containers/HighlightSegment.vue';
 import ResourceItemVue from './ResourceItem.vue';
+import { isEmpty } from '@/common/utils';
 
 defineEmits(['resourceClicked', 'switchContainer'])
 const props = defineProps(['currDir'])
@@ -12,16 +13,16 @@ const loading = ref(false);
 
 const dirResources: Ref<DirResource[]> = ref([]);
 
-async function showDirContent(dirUrl: string) {
+async function showDirContent(dirUrl?: string) {
     console.log(`showDirContent called with ${dirUrl}`);
+    if (isEmpty(dirUrl))
+        return;
     loading.value = true;
-    (async () => {
-        try {
-            dirResources.value = await getDirResources(dirUrl);
-        } finally {
-            loading.value = false;
-        }
-    })();
+    try {
+        dirResources.value = await getDirResources(dirUrl);
+    } finally {
+        loading.value = false;
+    }
 }
 
 watchEffect(() => {
