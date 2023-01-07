@@ -3,7 +3,20 @@ import { ref } from 'vue';
 import SidePanel from '../containers/SidePanel.vue';
 import PreferenceFragment from '../PreferenceFragment.vue';
 
+const fragment = ref<InstanceType<typeof PreferenceFragment> | null>(null);
+
 const dialog = ref(false);
+
+function close() {
+    dialog.value = false;
+}
+
+function saveAndClose() {
+    if (fragment.value?.saveIfValid()) {
+        close();
+    }
+}
+
 </script>
 
 <template>
@@ -21,11 +34,12 @@ const dialog = ref(false);
                 </v-card-text>
                 <v-list>
                     <v-list-item>
-                        <PreferenceFragment />
+                        <PreferenceFragment ref="fragment" />
                     </v-list-item>
                 </v-list>
                 <v-card-actions>
-                    <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+                    <v-btn color="primary" @click="saveAndClose">Save & Close</v-btn>
+                    <v-btn @click="close">Close</v-btn>
                 </v-card-actions>
             </v-card>
         </SidePanel>

@@ -7,6 +7,10 @@ export const useExplorerStore = defineStore('explorer', {
             baseUrl: "",  // The base URL for showing resource (relative name)
             currDir: "",
             permissionTarget: "",
+            recursiveRetrival: {
+                enabled: false,
+                depth: 0,
+            },
          }
     },
 

@@ -46,7 +46,14 @@ async function load() {
     store.loading = true;
     try {
         store.permission = {};
-        await retrievePermissionByAgent(url.value, store.permission, store.progress)
+        store.progress = {
+            total: 0,
+            current: 0,
+        };
+        await retrievePermissionByAgent(url.value, store.permission, store.progress,
+            explorerStore.recursiveRetrival.enabled
+                ? explorerStore.recursiveRetrival.depth
+                : 1);
     } finally {
         store.loading = false;
     }

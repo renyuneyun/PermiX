@@ -39,9 +39,11 @@ Currently, it can show the permission grouped by agents: permissions that an age
 
 - [x] Dynamic showing of permission while loading
 - [x] Fix some components won't reload after hot-patch
-- [ ] Recursively query permission by agent
+- [x] Recursively query permission by agent
 - [ ] Log-in using other pod providers
 - [ ] Better folder view with resource type
+- [ ] Determine whether `currDir` should be in store or as a provide
+- [ ] Fix permission by agent progress incorrect
 - [ ] Show error messages
 - [ ] Other views
 - [ ] Misc UI/UX:
