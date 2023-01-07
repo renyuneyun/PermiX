@@ -42,6 +42,7 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - [ ] Recursively query permission by agent
 - [ ] Log-in using other pod providers
 - [ ] Better folder view with resource type
+- [ ] Show error messages
 - [ ] Other views
 - [ ] Misc UI/UX:
     - [ ] Add hamburger icon to show nav drawer for small screen
