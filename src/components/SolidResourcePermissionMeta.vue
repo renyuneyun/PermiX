@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, inject, watch } from 'vue';
+import { reactive, ref, inject, watch, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { getAllPermissionForResource } from '../common/permissionUtils';
 import ResourcePermissionVue from './permissionViews/ResourcePermission.vue';
@@ -52,18 +52,15 @@ async function afterSetDir() {
     console.log(`afterSetDir() :: ${currDir.value}`)
     const dirUrl = currDir.value;
     getPermission(dirUrl);
+
 }
 
-watch(currDir, async (newDir, oldDir) => {
-    resourceUrl.value = newDir;
+watchEffect(() => {
+    resourceUrl.value = currDir.value;
     if ((explorerStore.baseUrl?.length || 0) == 0) {
-        explorerStore.baseUrl = newDir;
+        explorerStore.baseUrl = currDir.value;
     }
     afterSetDir();
-// }, {
-//     onTrack: () => {
-//         afterSetDir();
-//     }
 })
 </script>
 
