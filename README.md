@@ -37,15 +37,17 @@ Currently, it can show the permission grouped by agents: permissions that an age
 
 ## TODO
 
-- [ ] Recursively query permission by agent
-- [ ] Better folder view
 - [x] Dynamic showing of permission while loading
-- [ ] Fix some components won't reload after hot-patch
+- [x] Fix some components won't reload after hot-patch
+- [ ] Recursively query permission by agent
+- [ ] Log-in using other pod providers
+- [ ] Better folder view with resource type
 - [ ] Other views
-- [ ] UI/UX:
+- [ ] Misc UI/UX:
     - [ ] Add hamburger icon to show nav drawer for small screen
     - [ ] Better badges for other types of agents
     - [ ] More icons than text (where appropriate)
+    - [ ] Real folder view with drop-down-like browser
     - [ ] Better!
 
 ## Dev information
