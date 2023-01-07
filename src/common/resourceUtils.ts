@@ -1,4 +1,4 @@
-import { getSolidDataset, getThingAll, getThing, getContentType, toRdfJsDataset} from "@inrupt/solid-client";
+import { getSolidDataset, getThingAll, getThing, getContentType, toRdfJsDataset, type ThingPersisted} from "@inrupt/solid-client";
 import type { SolidDataset, Thing } from "@inrupt/solid-client";
 // import { session } from "../common/loginState";
 import { useSessionStore } from "../stores/session";
@@ -50,7 +50,10 @@ export async function getDirResources(dirUrl: string): Promise<DirResource[]> {
     { fetch: sessionStore.session.fetch }  // fetch function from authenticated session
   );
 
-  const dirThing: Thing = getThing(dataset, dirUrl)!;
+  const dirThing: ThingPersisted | null = getThing(dataset, dirUrl);
+  if (!dirThing) {
+    throw new Error("Unable to retrieve resource");
+  }
   return dirThing.predicates[P_CONTAINS]?.namedNodes?.map((thingUrl) => {
     return getThing(dataset, thingUrl)!
   }).map(DirResource.fromThing) || [];

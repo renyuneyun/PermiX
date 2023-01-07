@@ -6,6 +6,7 @@ export const useExplorerStore = defineStore('explorer', {
             applicaionBaseUrl: window.location.href,
             baseUrl: "",  // The base URL for showing resource (relative name)
             currDir: "",
+            permissionTarget: "",
          }
     },
 

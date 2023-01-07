@@ -1,7 +1,6 @@
 <script setup>
 import { reactive, ref, inject, watch, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
-import { getAllPermissionForResource } from '../common/permissionUtils';
 import ResourcePermissionVue from './permissionViews/ResourcePermission.vue';
 import HighlightSegment from './containers/HighlightSegment.vue';
 import DirListVue from './DirList.vue';
@@ -14,33 +13,9 @@ const sesisonStore = useSessionStore();
 
 const resourceUrl = ref("");
 
-const dirPermissionLoading = ref(false);
-const permissionInfo = reactive({
-    error: null,
-    info: {},
-});
-
 const { currDir } = storeToRefs(explorerStore);
 
 const debugText = inject('debugText');
-
-async function getPermission(url) {
-    console.log(`getPermission(${url})`);
-    dirPermissionLoading.value = true;
-    getAllPermissionForResource(url)
-        .then((returnedAccess) => {
-            if (returnedAccess === null) {
-                permissionInfo.error = "Could not load access details for this Resource.";
-            } else {
-                permissionInfo.error = null;
-                permissionInfo.info = returnedAccess;
-            }
-        }).catch((err) => {
-            permissionInfo.error = err;
-        }).finally(() => {
-            dirPermissionLoading.value = false;
-        });
-}
 
 async function setDir(dirUrl) {
     console.log(`setDir(${dirUrl})`)
@@ -48,11 +23,8 @@ async function setDir(dirUrl) {
     explorerStore.baseUrl = dirUrl;
 }
 
-async function afterSetDir() {
-    console.log(`afterSetDir() :: ${currDir.value}`)
-    const dirUrl = currDir.value;
-    getPermission(dirUrl);
-
+async function getPermission(target) {
+    explorerStore.permissionTarget = target
 }
 
 watchEffect(() => {
@@ -60,7 +32,7 @@ watchEffect(() => {
     if ((explorerStore.baseUrl?.length || 0) == 0) {
         explorerStore.baseUrl = currDir.value;
     }
-    afterSetDir();
+    getPermission(currDir.value);
 })
 </script>
 
@@ -94,8 +66,8 @@ watchEffect(() => {
             />
         </v-col>
         <v-col cols="12" lg="6">
-            <ResourcePermissionVue :permission-info="permissionInfo" :loading="dirPermissionLoading" >
-                <div>Permission for resource</div>
+            <ResourcePermissionVue :url="explorerStore.permissionTarget" >
+                <div>Permission for resource {{explorerStore.permissionTarget}}</div>
             </ResourcePermissionVue>
         </v-col>
     </v-row>
