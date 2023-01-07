@@ -99,11 +99,9 @@ export async function retrievePermissionByAgent(dirUrl: string, dest: Permission
                 } catch (e) {
                     if (e instanceof SolidClientError) {
                         // if (e.statusCode == 404) {
-                        //     continue;
                         // } else {
                         //     throw e;
                         // }
-                        continue;
                     } else {
                         throw e;
                     }

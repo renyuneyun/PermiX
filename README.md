@@ -43,7 +43,7 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - [ ] Log-in using other pod providers
 - [ ] Better folder view with resource type
 - [ ] Determine whether `currDir` should be in store or as a provide
-- [ ] Fix permission by agent progress incorrect
+- [x] Fix permission by agent progress incorrect
 - [ ] Show error messages
 - [ ] Other views
 - [ ] Misc UI/UX:
