@@ -5,7 +5,7 @@ If not provided, it will use pinia store's `permissionByAgent`.
 
 <script setup lang="ts">
 import { computed, reactive, watchEffect, ref } from 'vue';
-import { getPermissionByAgent, retrievePermissionByAgent, type PermissionByAgent } from '@/common/permissionUtils';
+import { retrievePermissionByAgent } from '@/common/permissionUtils';
 import { useExplorerStore } from '@/stores/explorerState';
 import HighlightSegment from '../containers/HighlightSegment.vue';
 import AgentBadgeForPermissionVue from '../agentBadges/AgentBadgeForPermission.vue';
@@ -45,11 +45,8 @@ async function load() {
         return;
     store.loading = true;
     try {
-        // const permission = await getPermissionByAgent(url.value);
-        // store.permission = permission;
         store.permission = {};
         await retrievePermissionByAgent(url.value, store.permission, store.progress)
-        // await retrievePermissionByAgent(url.value);
     } finally {
         store.loading = false;
     }

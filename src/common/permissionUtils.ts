@@ -13,25 +13,6 @@ export type PermissionInfo = {
     [agent: string]: AccessModes | null
 } // It is `null` if the current user does not have permission to read the ACL
 
-type PermissionByAgentObject = {
-    [agent: string]: {
-        [mode_string: string]: string[]
-    }
-}
-
-export class ResourceOfPermission {
-    permission: AccessModes
-    resources: string[]
-    constructor(permission: AccessModes, resource: string[] |string) {
-        this.permission = permission;
-        if (Array.isArray(resource)) {
-            this.resources = resource;
-        } else {
-            this.resources = [ resource ];
-        }
-    }
-}
-
 type ResourcesOfPermission = {
     permission: AccessModes
     resources: string[]
@@ -58,50 +39,6 @@ export async function getAllPermissionForResource(resource: string): Promise<Per
     const accessObj = { [K_PUBLIC]: accessForPublic };
 
     return { ...accessObj, ...accessByAgent };
-}
-
-export async function getPermissionByAgent(dirUrl: string): Promise<PermissionByAgent> {
-    const dirResources = await getDirResources(dirUrl);
-    let permissionByAgentObject: PermissionByAgentObject = {};
-    for (const res of dirResources) {
-        const url = res.url;
-        try {
-            const resComb = await getAllPermissionForResource(res.url);
-            for (const [agent, resInfo] of Object.entries(resComb)) {
-                const resInfoStr = JSON.stringify(resInfo);
-                if (!(agent in permissionByAgentObject)) {
-                    permissionByAgentObject[agent] = {}
-                } 
-                const permissionCollection = permissionByAgentObject[agent];
-                let urls: string[] = [];
-                if (resInfoStr in permissionCollection) {
-                    urls = urls.concat(permissionCollection[resInfoStr]);
-                }
-                urls.push(url);
-                permissionByAgentObject[agent][resInfoStr] = urls;
-            }
-        } catch (e) {
-            if (e instanceof SolidClientError) {
-                // if (e.statusCode == 404) {
-                //     continue;
-                // } else {
-                //     throw e;
-                // }
-                continue;
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    const permissionByAgent: PermissionByAgent = Object.assign({}, ...Object.entries(permissionByAgentObject).map(([agent, v]) => {
-        return {
-            [agent]: 
-            Object.entries(v).map(([permissionStr, agents]) => {
-            return new ResourceOfPermission(JSON.parse(permissionStr), agents);
-        })}
-    }));
-    return permissionByAgent;
 }
 
 interface ProgressInfo {
