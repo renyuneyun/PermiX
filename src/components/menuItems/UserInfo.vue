@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { computed, watchEffect, reactive, onMounted } from 'vue';
+import { computed, watchEffect, reactive, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSessionStore } from '@/stores/session';
 import { getUserInfo } from '@/common/userInfoUtils';
 import { SOLID_IDENTITY_PROVIDERS } from '@/common/consts';
+import LoginFragment from '../LoginFragment.vue';
+import SidePanel from '../containers/SidePanel.vue';
+// import { VBtn } from 'vuetify/lib';
 
 const sessionStore = useSessionStore();
+
+// const userIcon = ref<InstanceType<typeof VBtn>>(null);
+// const userIcon = ref<VBtn>(null);
+const userIcon = ref(null);
+
+const dialog = ref(false);
 
 const userInfo = reactive({
     loaded: false,
@@ -26,20 +35,38 @@ watchEffect(() => {
 onMounted(() => {
     sessionStore.handleRedirectAfterLogin()
 })
+
+function login(idp: string) {
+    sessionStore.login(idp)
+}
 </script>
 
 <template>
     <template v-if="!isLoggedIn || !userInfo.loaded">
     <v-tooltip :text="`login`" >
         <template v-slot:activator="{ props: tooltipProps }">
-            <v-btn icon @click="sessionStore.login(SOLID_IDENTITY_PROVIDERS[0])">
+            <v-btn ref="userIcon" icon>
                 <v-avatar
                 v-bind="tooltipProps"
                 :color="`grey`"
                 ></v-avatar>
+
+
             </v-btn>
         </template>
     </v-tooltip>
+    <SidePanel v-model="dialog" :activator="userIcon">
+        <v-card>
+            <v-card-text>
+                Log in
+            </v-card-text>
+            <v-list>
+                <v-list-item>
+                    <LoginFragment @login="(idp) => login(idp)" />
+                </v-list-item>
+            </v-list>
+        </v-card>
+    </SidePanel>
     </template>
     <template v-else>
         <v-menu min-width="200px" rounded>

@@ -7,6 +7,9 @@
       "@/*": ["./src/*"]
     },
     "allowJs": true,
+    "types": [
+      "vuetify"
+    ],
     "outDir": "./dist"
   },
   "references": [
