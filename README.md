@@ -44,6 +44,7 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - [ ] Better folder view with resource type
 - [ ] Show error messages
 - [x] Edit access control
+- [x] Keep log-in state
 - [ ] Write new access control
 - [ ] A view about ACL file content
 - [ ] Fix bugs
