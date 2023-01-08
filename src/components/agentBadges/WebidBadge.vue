@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watchEffect } from 'vue';
+import { reactive, computed, watchEffect } from 'vue';
 import { getUserInfo } from '@/common/userInfoUtils';
 // import { QueryEngine } from '@comunica/query-sparql'
 // import { FOAF, VCARD } from '@inrupt/vocab-common-rdf'
@@ -13,6 +13,9 @@ const userInfo = reactive({
     avatar: undefined,
     name: "",
 })
+
+const hasAvatar = computed(() => userInfo.loaded && userInfo.avatar )
+const hasName = computed(() => userInfo.loaded && userInfo.name )
 
 watchEffect(() => {
     getUserInfo(props.webid, userInfo)
@@ -51,14 +54,14 @@ watchEffect(() => {
 </script>
 
 <template>
-    <v-chip color="primary" label>
-        <template v-if="!userInfo.loaded">
-            <v-icon start icon="mdi-account-circle-outline"></v-icon>
+    <v-chip :href="webid" color="primary" label>
+        <v-icon v-if="!hasAvatar" start icon="mdi-account-circle-outline"></v-icon>
+        <v-avatar v-else start :image="userInfo.avatar"></v-avatar>
+        <template v-if="!hasName">
             {{ webid }}
         </template>
         <template v-else>
-            <v-avatar :image="userInfo.avatar"></v-avatar>
-            <a :href="webid">{{ userInfo.name }}</a>
+            {{ userInfo.name }}
         </template>
     </v-chip>
 </template>
