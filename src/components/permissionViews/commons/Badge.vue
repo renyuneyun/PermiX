@@ -34,5 +34,9 @@ const text = computed(() => permissionText[props.type.toLowerCase() as keyof {}]
 </script>
 
 <template>
-    <v-chip :color="color">{{ text }}<v-icon end :icon="icon"></v-icon></v-chip>
+    <v-tooltip :text="props.type" location="top center" origin="auto">
+    <template v-slot:activator="{ props }">
+        <v-chip v-bind="props" :color="color">{{ text }}<v-icon end :icon="icon"></v-icon></v-chip>
+    </template>
+    </v-tooltip>
 </template>

@@ -28,6 +28,19 @@ async function showDirContent(dirUrl?: string) {
 watchEffect(() => {
     showDirContent(props.currDir);
 });
+
+function dirListItemClass(dirRes: DirResource): string {
+    switch (dirRes.type) {
+        case ResourceType.Dir:
+            return 'dir';
+            break;
+        case ResourceType.File:
+            return 'file';
+            break;
+        default:
+            return 'file';
+    }
+}
 </script>
 
 <template>
@@ -37,16 +50,36 @@ watchEffect(() => {
     <v-list lines="one" density="compact">
         <template 
             v-for="dirRes in dirResources" :key="dirRes.url" >
-            <v-list-item  v-if="dirRes.type == ResourceType.Dir" class="dir">
-            <v-row>
-                <v-col lg="10">
-                <ResourceItemVue @resource-clicked="(url) => $emit('resourceClicked', url)" :url="dirRes.url"/>
-                </v-col>
-                <v-col lg="2">
-                    <v-icon class="green" size="small" @click.prevent="$emit('switchContainer', dirRes.url)">mdi-arrow-right</v-icon>
-                </v-col>
-            </v-row></v-list-item>
-            <v-list-item v-else class="file"><ResourceItemVue @resource-clicked="(url) => $emit('resourceClicked', url)" :url="dirRes.url"/></v-list-item>
+            <v-list-item :class="dirListItemClass(dirRes)">
+                <v-row no-gutters>
+                    <v-col lg="11">
+                        <template v-if="dirRes.type == ResourceType.Dir">
+                            <v-row no-gutters>
+                                <v-col lg="11">
+                                <ResourceItemVue @resource-clicked="(url) => $emit('resourceClicked', url)" :url="dirRes.url"/>
+                                </v-col>
+                                <v-col lg="1">
+                                    <v-tooltip text="Go to" location="top center" origin="auto">
+                                    <template v-slot:activator="{ props }">
+                                        <v-icon v-bind="props" class="green" size="small" @click.prevent="$emit('switchContainer', dirRes.url)">mdi-arrow-right</v-icon>
+                                    </template>
+                                    </v-tooltip>
+                                </v-col>
+                            </v-row>
+                        </template>
+                        <template v-else>
+                            <ResourceItemVue @resource-clicked="(url) => $emit('resourceClicked', url)" :url="dirRes.url"/>
+                        </template>
+                    </v-col>
+                    <v-col lg="1">
+                        <v-tooltip text="Show permission" location="top center" origin="auto">
+                        <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" class="green" size="small" @click.prevent="$emit('resourceClicked', dirRes.url)">mdi-magnify</v-icon>
+                        </template>
+                        </v-tooltip>
+                    </v-col>
+                </v-row>
+            </v-list-item>
         </template>
     </v-list>
     </HighlightSegment>

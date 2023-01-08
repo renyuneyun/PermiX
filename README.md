@@ -51,6 +51,7 @@ Currently, it can show the permission grouped by agents: permissions that an age
     - [ ] After enabling recursive read, the form won't be submittable until changed the text field of recursion depth
 - [ ] Misc UI/UX:
     - [ ] Add hamburger icon to show nav drawer for small screen
+    - [ ] Center nav drawer icons
     - [ ] Better badges for other types of agents
     - [ ] More icons than text (where appropriate)
     - [ ] Better!
