@@ -50,15 +50,12 @@ async function setPermissionSingle(resource: string, agent: string, permission: 
 }
 
 export async function setPermission(resource: string | string[], agent: string, permission: AccessModes, options?: object) {
-    if (!options) {
-        const sessionStore = useSessionStore();
-        options = {fetch: sessionStore.session.fetch};
-    }
+    const myOptions = options ? options : {fetch: useSessionStore().session.fetch}
 
     if (Array.isArray(resource)) {
-        return Promise.all(resource.map(res => setPermissionSingle(res, agent, permission, options)))
+        return Promise.all(resource.map(res => setPermissionSingle(res, agent, permission, myOptions)))
     } else {
-        return await setPermissionSingle(resource, agent, permission, options);
+        return await setPermissionSingle(resource, agent, permission, myOptions);
     }
 
 }
