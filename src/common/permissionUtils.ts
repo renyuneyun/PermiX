@@ -41,6 +41,28 @@ export async function getAllPermissionForResource(resource: string): Promise<Per
     return { ...accessObj, ...accessByAgent };
 }
 
+async function setPermissionSingle(resource: string, agent: string, permission: AccessModes, options: object): Promise<AccessModes | null> {
+    if (agent == K_PUBLIC) {
+        return await universalAccess.setPublicAccess(resource, permission, options);
+    } else {
+        return await universalAccess.setAgentAccess(resource, agent, permission, options)
+    }
+}
+
+export async function setPermission(resource: string | string[], agent: string, permission: AccessModes, options?: object) {
+    if (!options) {
+        const sessionStore = useSessionStore();
+        options = {fetch: sessionStore.session.fetch};
+    }
+
+    if (Array.isArray(resource)) {
+        return Promise.all(resource.map(res => setPermissionSingle(res, agent, permission, options)))
+    } else {
+        return await setPermissionSingle(resource, agent, permission, options);
+    }
+
+}
+
 interface ProgressInfo {
     current: number,
     total: number,

@@ -43,7 +43,9 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - [x] Log-in using other pod providers
 - [ ] Better folder view with resource type
 - [ ] Show error messages
-- [ ] Other views
+- [x] Edit access control
+- [ ] Write new access control
+- [ ] A view about ACL file content
 - [ ] Fix bugs
     - [x] Permission by agent progress incorrect
     - [ ] After enabling recursive read, the form won't be submittable until changed the text field of recursion depth
@@ -51,13 +53,13 @@ Currently, it can show the permission grouped by agents: permissions that an age
     - [ ] Add hamburger icon to show nav drawer for small screen
     - [ ] Better badges for other types of agents
     - [ ] More icons than text (where appropriate)
-    - [ ] Real folder view with drop-down-like browser
     - [ ] Better!
 
 ### To determine
 
 - [ ] Should `currDir` be in store or as a provide?
 - [ ] Should permission by agent be a store?
+- [ ] Real folder view with drop-down-like browser?
 
 
 ## Dev information

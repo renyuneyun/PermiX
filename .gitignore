@@ -26,3 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Components that are only there for development/testing
+src/components/menuItems/Test.vue

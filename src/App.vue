@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DirPermissionExplorer from './components/DirPermissionExplorer.vue'
 import Preference from './components/menuItems/Preference.vue';
+import Test from './components/menuItems/Test.vue';
 import UserInfo from './components/menuItems/UserInfo.vue';
 </script>
 
