@@ -1,6 +1,6 @@
-# solid-permission-viewer
+# solid-permission-explorer
 
-This Solid App aims to help you understand better the permission settings in your Pods (or any other compatible resources).
+This Solid App aims to help you understand better the permission settings in your Pods (or any other compatible resources), and also provide easy manipulation of them.
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -13,9 +13,9 @@ npm run dev
 
 ## Features (aimed)
 
-This App aims to help explore the permission settings of different resources in your Pod. It will not simply show the content on a single ACL file of a resource.
+This App aims to help explore the permission settings of different resources in your Pod. It aims at not only a single resource, but also a container and even the Pod.
 
-Currently, it can show the permission grouped by agents: permissions that an agent (and thus all agents) has for what resource. Grouping that like:
+Currently, it can show (and edit) the permission grouped by agents: permissions that an agent (and thus all agents) has for what resource. Grouping that like:
 
 ```
 {
@@ -32,8 +32,9 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - Log in/out and get pods
 - Get folder
 - Show folder permission
-- Show permission by agent
+- Show permission by agent (and recursively)
 - Show user avatar
+- Edit permission
 
 ## TODO
 
@@ -55,6 +56,7 @@ Currently, it can show the permission grouped by agents: permissions that an age
     - [ ] Center nav drawer icons
     - [ ] Better badges for other types of agents
     - [ ] More icons than text (where appropriate)
+    - [ ] I18n
     - [ ] Better!
 
 ### To determine
@@ -62,6 +64,8 @@ Currently, it can show the permission grouped by agents: permissions that an age
 - [ ] Should `currDir` be in store or as a provide?
 - [ ] Should permission by agent be a store?
 - [ ] Real folder view with drop-down-like browser?
+- [ ] Move folder view as an expandable hanging line, and each permission view as a separate tab / page?
+- [ ] Show parent's permission if current file does not have special permission?
 
 
 ## Dev information
