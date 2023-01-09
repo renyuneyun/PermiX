@@ -24,5 +24,6 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       path: "path-browserify",
     }
-  }
+  },
+  base: '/PermiX/'
 })
