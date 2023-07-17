@@ -10,12 +10,11 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@comunica/query-sparql": "^2.5.2",
-    "@inrupt/solid-client": "^1.24.0",
+    "@comunica/query-sparql": "^2.8.1",
+    "@inrupt/solid-client": "^1.29.0",
     "@inrupt/solid-client-authn-browser": "^1.12.3",
     "@inrupt/vocab-common-rdf": "^1.0.5",
     "@inrupt/vocab-solid": "^1.0.4",
-    "comunica": "^0.0.1-security",
     "n3": "^1.16.3",
     "path-browserify": "^1.0.1",
     "pinia": "^2.0.28",

@@ -5,7 +5,7 @@ import PermissionView from './commons/Card.vue';
 import { getAllPermissionForResource, setPermission, type PermissionInfo } from '../../common/permissionUtils';
 import AgentBadgeForPermissionVue from '../agentBadges/AgentBadgeForPermission.vue';
 import PermissionEditor from './PermissionEditor.vue';
-import type { AccessModes } from '@inrupt/solid-client/dist/acp/type/AccessModes';
+import type { AccessModes } from "@inrupt/solid-client";
 
 interface PermissionInfoObject {
     error: Error | string | null,

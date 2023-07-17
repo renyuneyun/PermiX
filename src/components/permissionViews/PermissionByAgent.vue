@@ -14,7 +14,7 @@ import ResourceItemVue from '../ResourceItem.vue';
 import PermissionEditor from './PermissionEditor.vue';
 import { isEmpty } from '@/common/utils';
 import { usePermissionByAgentStore } from '@/stores/permissionByAgent';
-import type { AccessModes } from '@inrupt/solid-client/dist/acp/type/AccessModes';
+import type { AccessModes } from "@inrupt/solid-client";
 
 const props = defineProps<{
     url?: string,
