@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, watchEffect, reactive, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useExplorerStore } from '@/stores/explorerState';
 import { useSessionStore } from '@/stores/session';
 import { getUserInfo } from '@/common/userInfoUtils';
 import { SOLID_IDENTITY_PROVIDERS } from '@/common/consts';
@@ -8,6 +9,7 @@ import LoginFragment from '../LoginFragment.vue';
 import SidePanel from '../containers/SidePanel.vue';
 // import { VBtn } from 'vuetify/lib';
 
+const explorerStore = useExplorerStore();
 const sessionStore = useSessionStore();
 
 // const userIcon = ref<InstanceType<typeof VBtn>>(null);
@@ -33,11 +35,11 @@ watchEffect(() => {
 })
 
 onMounted(() => {
-    sessionStore.handleRedirectAfterLogin()
+    sessionStore.handleRedirectAfterLogin(explorerStore.loginRedirectUrl)
 })
 
 function login(idp: string) {
-    sessionStore.login(idp)
+    sessionStore.login(idp, explorerStore.loginRedirectUrl)
 }
 </script>
 

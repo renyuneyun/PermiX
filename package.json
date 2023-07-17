@@ -19,6 +19,7 @@
     "n3": "^1.16.3",
     "path-browserify": "^1.0.1",
     "pinia": "^2.0.28",
+    "solid-helper-vue": "^0.1.1",
     "vue": "^3.2.45",
     "vuetify": "^3.0.6"
   },
