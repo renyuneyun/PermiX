@@ -1,9 +1,13 @@
-name: Build Vue
-on: [push]
+name: Build and publish to pages
+on:
+  push:
+    branches:
+      - pages
+      - pages-test
 jobs:
   build_vue:
     runs-on: ubuntu-latest
-    name: Build Vue
+    name: Build and publish to pages
     steps:
     - uses: actions/checkout@v2
     - id: Build-Vue
