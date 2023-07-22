@@ -23,4 +23,5 @@ export default defineConfig({
       path: "path-browserify",
     },
   },
+  base: "/PermiX/",
 });
