@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AccessModes } from '@inrupt/solid-client/dist/acp/type/AccessModes';
+import type { AccessModes } from "@inrupt/solid-client";
 import { computed } from 'vue';
 import PermissionBadgeVue from './Badge.vue';
 

@@ -4,7 +4,7 @@ import { universalAccess, type Access } from "@inrupt/solid-client";
 import { useSessionStore } from "../stores/session";
 import { getDirResources, ResourceType } from "./resourceUtils";
 import { SolidClientError } from "@inrupt/solid-client";
-import type { AccessModes } from "@inrupt/solid-client/dist/acp/type/AccessModes";
+import type { AccessModes } from "@inrupt/solid-client";
 import { isSame } from "./utils";
 
 export const K_PUBLIC = 'public';
