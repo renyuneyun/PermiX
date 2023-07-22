@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { EMPTY_PERMISSION } from '@/common/consts';
-import type { AccessModes } from '@inrupt/solid-client/dist/acp/policy';
+import type { AccessModes } from "@inrupt/solid-client";
 import { reactive } from 'vue';
 import AgentBadgeForPermission from '../agentBadges/AgentBadgeForPermission.vue';
 import Card from './commons/Card.vue';
