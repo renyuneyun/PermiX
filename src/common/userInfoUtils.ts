@@ -1,7 +1,4 @@
-import { QueryEngine } from '@comunica/query-sparql'
-import { FOAF, VCARD } from '@inrupt/vocab-common-rdf'
-
-const queryEngine = new QueryEngine();
+import { getUserInfo as getUserInfo0 } from '@renyuneyun/solid-helper';
 
 export interface UserInfoStruct {
     loaded: boolean;
@@ -11,23 +8,8 @@ export interface UserInfoStruct {
 
 export async function getUserInfo(webid: string, userInfo: UserInfoStruct) {
     userInfo.loaded = false;
-    queryEngine.queryBindings(`
-        SELECT ?name ?photo {
-            ?s a <${FOAF.Person}>.
-            OPTIONAL {
-                ?s <${VCARD.hasPhoto}> ?photo
-            }
-            OPTIONAL {
-                ?s <${VCARD.fn}> ?name 
-            }
-        } LIMIT 1
-    `, {
-      sources: [webid],
-    }).then(function (bindingsStream) {
-        bindingsStream.on('data', function (data) {
-            userInfo.avatar = data.get('photo')?.id;
-            userInfo.name = data.get('name')?.value;
-            userInfo.loaded = true;
-        });
-    });
+    const info = await getUserInfo0(webid);
+    userInfo.avatar = info.avatar;
+    userInfo.name = info.name;
+    userInfo.loaded = true;
 }

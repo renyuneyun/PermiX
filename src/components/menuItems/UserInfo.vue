@@ -26,9 +26,10 @@ const userInfo = reactive({
 
 const { webid, isLoggedIn } = storeToRefs(sessionStore);
 
-watchEffect(() => {
+watchEffect(async () => {
     if (webid.value) {
-        getUserInfo(webid.value, userInfo);
+        await getUserInfo(webid.value, userInfo);
+        // getUserInfo(webid.value, userInfo);
     } else {
         userInfo.loaded = false;
     }

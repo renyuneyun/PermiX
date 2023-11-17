@@ -15,6 +15,7 @@
     "@inrupt/solid-client-authn-browser": "^1.12.3",
     "@inrupt/vocab-common-rdf": "^1.0.5",
     "@inrupt/vocab-solid": "^1.0.4",
+    "@renyuneyun/solid-helper": "^0.0.3",
     "n3": "^1.16.3",
     "path-browserify": "^1.0.1",
     "pinia": "^2.1.4",
