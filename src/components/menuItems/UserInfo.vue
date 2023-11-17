@@ -36,11 +36,11 @@ watchEffect(async () => {
 })
 
 onMounted(() => {
-    sessionStore.handleRedirectAfterLogin(explorerStore.loginRedirectUrl)
+    sessionStore.handleRedirectAfterLogin()
 })
 
 function login(idp: string) {
-    sessionStore.login(idp, explorerStore.loginRedirectUrl)
+    sessionStore.login(idp, explorerStore.applicaionBaseUrl)
 }
 </script>
 
