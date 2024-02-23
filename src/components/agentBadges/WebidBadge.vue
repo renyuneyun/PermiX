@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { reactive, computed, watchEffect } from 'vue';
-import { getUserInfo } from '@/common/userInfoUtils';
+import { reactive, computed, watchEffect } from "vue";
+import { getUserInfo } from "@/common/userInfoUtils";
 // import { QueryEngine } from '@comunica/query-sparql'
 // import { FOAF, VCARD } from '@inrupt/vocab-common-rdf'
 
 const props = defineProps<{
-    webid: string,
-}>()
+  webid: string;
+}>();
 
 const userInfo = reactive({
-    loaded: false,
-    avatar: undefined,
-    name: "",
-})
+  loaded: false,
+  avatar: undefined,
+  name: "",
+});
 
-const hasAvatar = computed(() => userInfo.loaded && userInfo.avatar )
-const hasName = computed(() => userInfo.loaded && userInfo.name )
+const hasAvatar = computed(() => userInfo.loaded && userInfo.avatar);
+const hasName = computed(() => userInfo.loaded && userInfo.name);
 
 watchEffect(() => {
-    getUserInfo(props.webid, userInfo)
-})
+  getUserInfo(props.webid, userInfo);
+});
 
 // const queryEngine = new QueryEngine();
 
@@ -36,7 +36,7 @@ watchEffect(() => {
 //                 ?s <${VCARD.hasPhoto}> ?photo
 //             }
 //             OPTIONAL {
-//                 ?s <${VCARD.fn}> ?name 
+//                 ?s <${VCARD.fn}> ?name
 //             }
 //         } LIMIT 1
 //     `, {
@@ -54,14 +54,14 @@ watchEffect(() => {
 </script>
 
 <template>
-    <v-chip :href="webid" color="primary" label>
-        <v-icon v-if="!hasAvatar" start icon="mdi-account-circle-outline"></v-icon>
-        <v-avatar v-else start :image="userInfo.avatar"></v-avatar>
-        <template v-if="!hasName">
-            {{ webid }}
-        </template>
-        <template v-else>
-            {{ userInfo.name }}
-        </template>
-    </v-chip>
+  <v-chip :href="webid" color="primary" label>
+    <v-icon v-if="!hasAvatar" start icon="mdi-account-circle-outline"></v-icon>
+    <v-avatar v-else start :image="userInfo.avatar"></v-avatar>
+    <template v-if="!hasName">
+      {{ webid }}
+    </template>
+    <template v-else>
+      {{ userInfo.name }}
+    </template>
+  </v-chip>
 </template>
