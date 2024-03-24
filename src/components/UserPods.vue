@@ -2,6 +2,7 @@
 import { ref, watchEffect } from "vue";
 import { useSessionStore } from "../stores/session";
 import { getPodUrlAll } from "@inrupt/solid-client";
+import { findStorage } from "@renyuneyun/solid-helper";
 
 defineEmits(["podClicked"]);
 
@@ -11,6 +12,12 @@ const sessionStore = useSessionStore();
 
 async function getPods(webid: string) {
   const mypods = await getPodUrlAll(webid, { fetch: fetch });
+  if (mypods.length == 0) {
+    const pod = await findStorage(webid);
+    if (pod) {
+      mypods.push(pod);
+    }
+  }
   pods.value = mypods;
 }
 
